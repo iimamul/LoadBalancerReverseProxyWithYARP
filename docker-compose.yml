@@ -1,0 +1,53 @@
+version: '3.4'
+
+services:
+  gateway.api:
+    image: ${DOCKER_REGISTRY-}gateway.api
+    build:
+      context: .
+      dockerfile: Gateway.API/Dockerfile
+    ports:
+      - "6000:6000"
+      - "6001:6001"
+    networks: 
+      - weather
+
+  weather.api:
+    image: ${DOCKER_REGISTRY-}weather.api
+    container_name: weather.api
+    build:
+      context: .
+      dockerfile: Weather.API/Dockerfile
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    networks: 
+      - weather
+    
+  weather.api2:
+    image: ${DOCKER_REGISTRY-}weather.api
+    container_name: weather.api2
+    build:
+      context: .
+      dockerfile: Weather.API/Dockerfile
+    ports:
+      - "5100:5100"
+      - "5101:5101"
+    networks: 
+      - weather
+
+  weather.api3:
+    image: ${DOCKER_REGISTRY-}weather.api
+    container_name: weather.api3
+    build:
+      context: .
+      dockerfile: Weather.API/Dockerfile
+    ports:
+      - "5200:5200"
+      - "5201:5201"
+    networks: 
+      - weather
+
+networks:
+  weather:
+    name: weather-network
